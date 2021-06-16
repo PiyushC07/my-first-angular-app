@@ -1,5 +1,43 @@
 <p>Server works!</p>
+<h3>Server List</h3>
+<tr *ngFor="let server of servers; let i = index">
+  <li *ngIf="!editOption; else edit">
+    {{ server }}
+    <button
+      type="button"
+      class="btn-sm"
+      (click)="serverEdit = server; editOption = true"
+    >
+      Edit
+    </button>
+    <button
+      type="button"
+      class="btn-close btn-sm"
+      aria-label="Remove"
+      (click)="onRemoveServer(server)"
+    ></button>
+  </li>
+  <ng-template #edit>
+    <input class="form-control" [(ngModel)]="serverEdit" />
+    <button class="btn btn-primary btn-sm" (click)="onEditServer(server)">
+      Save
+    </button>
+    <button
+      type="button"
+      class="btn-close btn-sm"
+      aria-label="Close"
+      (click)="editOption = false"
+    ></button>
+  </ng-template>
+</tr>
 
-<button class="btn btn-primary" [disabled]="!allowServer">Add Server</button>
-
-<p>Server with Id {{ serverId }} is {{ serverStatus }}</p>
+<hr />
+<input class="form-control" [(ngModel)]="serverName" [disabled]="editOption" />
+<p></p>
+<button
+  class="btn btn-primary"
+  [disabled]="editOption"
+  (click)="onCreateServer()"
+>
+  Add Server
+</button>

@@ -6,14 +6,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./server.component.css'],
 })
 export class ServerComponent implements OnInit {
+  serverEdit = '';
+  editOption = false;
+  servers: any = [];
   allowServer = false;
   serverId = 10;
-  serverStatus = 'offline';
+  serverName = 'testserver';
   constructor() {
-    setTimeout(() => {
-      this.allowServer = true;
-    }, 2000);
   }
 
   ngOnInit(): void {}
+
+  onCreateServer() {
+    if (this.serverName !== '') {
+      this.servers.push(this.serverName);
+      console.log(this.servers);
+      this.serverName = '';
+    }
+  }
+  onRemoveServer(server: String) {
+    this.servers.pop(server);
+    console.log(this.servers);
+  }
+
+  onEditServer(server: String) {
+    var index = this.servers.indexOf(server);
+    this.servers[index] = this.serverEdit;
+    console.log(this.servers);
+    this.editOption = false;
+  }
 }
